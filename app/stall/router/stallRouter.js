@@ -15,6 +15,7 @@ class StallRouter {
         this.apiRouteStall.get("/read", stallController_1.default.readStall);
         this.apiRouteStall.put("/update", stallController_1.default.updateStall);
         this.apiRouteStall.delete("/delete/:id", stallController_1.default.deleteStall);
+        this.apiRouteStall.get("/search/:id", stallController_1.default.seacrhStallById);
     }
 }
 const stallRoute = new StallRouter();

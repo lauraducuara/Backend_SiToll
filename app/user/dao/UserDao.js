@@ -20,7 +20,7 @@ class UserDao {
             this.UserRepository.insert(objUser).then((response) => {
                 res.status(200).json({ message: "Se ha creado el usuario correctamente", objeto: response.raw });
             }).catch((error) => {
-                res.status(400).json({ mensaje: "Fallo al insertar la ruta" });
+                res.status(400).json({ mensaje: "Fallo al insertar el usuario" });
             });
         });
     }
@@ -30,16 +30,16 @@ class UserDao {
                 const arrayUser = answer;
                 res.status(200).json(arrayUser);
             }).catch((error) => {
-                res.status(400).json({ mensaje: "Fallo al obtener la ruta", error });
+                res.status(400).json({ mensaje: "Fallo al obtener el usuario", error });
             });
         });
     }
     static updateUser(res, objUser) {
         return __awaiter(this, void 0, void 0, function* () {
             this.UserRepository.update({ codUsuario: objUser.codUsuario }, objUser).then((answer) => {
-                res.status(200).json({ message: "Ruta actualizado", objeto: objUser });
+                res.status(200).json({ message: "usuario actualizado", objeto: objUser });
             }).catch((error) => {
-                res.status(400).json({ mensaje: "Fallo al actualizar la ruta", error });
+                res.status(400).json({ mensaje: "Fallo al actualizar el usuario", error });
             });
         });
     }
@@ -47,17 +47,27 @@ class UserDao {
         return __awaiter(this, void 0, void 0, function* () {
             const UserExistente = yield this.UserRepository.findBy({ codUsuario: codUsuario });
             if (UserExistente.length == 0) {
-                return res.status(404).json({ mensaje: "La ruta no se encontró" });
+                return res.status(404).json({ mensaje: "El usuario no se encontró" });
             }
             else {
                 this.UserRepository.delete({ codUsuario })
                     .then((answer) => {
-                    res.status(200).json({ message: "Ruta eliminada", respuesta: answer.raw });
+                    res.status(200).json({ message: "usuario eliminado", respuesta: answer.raw });
                 })
                     .catch((error) => {
-                    res.status(400).json({ mensaje: "Fallo al eliminar la ruta", error });
+                    res.status(400).json({ mensaje: "Fallo al eliminar el usuario", error });
                 });
             }
+        });
+    }
+    static getOneUserById(res, cod_user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.UserRepository.findBy({ codUsuario: cod_user }).then((answer) => {
+                const arrayUser = answer;
+                res.status(200).json(arrayUser);
+            }).catch((error) => {
+                res.status(400).json({ mensaje: "Fallo al obtener el departamentos", error });
+            });
         });
     }
 }

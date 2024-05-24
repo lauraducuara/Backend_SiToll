@@ -27,6 +27,15 @@ class UserController extends UserDao_1.default {
             res.status(400).json({ mensaje: "Código del usuario no valida" });
         }
     }
+    seacrhUserById(req, res) {
+        const codUser = Number(req.params.id);
+        if (!isNaN(codUser)) {
+            UserController.getOneUserById(res, codUser);
+        }
+        else {
+            res.status(400).json({ mensaje: "Código del usuario no valido" });
+        }
+    }
 }
 const userController = new UserController();
 exports.default = userController;

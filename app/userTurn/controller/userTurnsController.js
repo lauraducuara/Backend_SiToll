@@ -22,10 +22,18 @@ class UserTurnController extends userTurnDao_1.default {
         const cod_puesto = Number(req.params.id);
         const cod_user_turn = Number(req.params.idU);
         const cod_turn = Number(req.params.idT);
-        console.log(cod_user_turn);
-        console.log(cod_puesto);
-        console.log(cod_turn);
         UserTurnController.deleteUserTurn(res, cod_user_turn, cod_puesto, cod_turn);
+    }
+    seacrhUsTById(req, res) {
+        const cod_puesto = Number(req.params.id);
+        const cod_user_turn = Number(req.params.idU);
+        const cod_turn = Number(req.params.idT);
+        if (!isNaN(cod_puesto) && !isNaN(cod_user_turn) && !isNaN(cod_turn)) {
+            UserTurnController.getOneUserById(res, cod_puesto, cod_user_turn, cod_turn);
+        }
+        else {
+            res.status(400).json({ mensaje: "Código del usuario turno no valido" });
+        }
     }
 }
 const userTurnController = new UserTurnController();

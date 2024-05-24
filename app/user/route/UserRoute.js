@@ -15,6 +15,7 @@ class UserRoute {
         this.apiRouteUser.get("/read", UserController_1.default.readUser);
         this.apiRouteUser.put("/update", UserController_1.default.updateUser);
         this.apiRouteUser.delete("/delete/:id", UserController_1.default.deleteUser);
+        this.apiRouteUser.get("/search/:id", UserController_1.default.seacrhUserById);
     }
 }
 const userRoute = new UserRoute();

@@ -15,6 +15,7 @@ class UserTurnRoute {
         this.apiRouteUserTurn.get("/read", userTurnsController_1.default.readUserTurn);
         this.apiRouteUserTurn.put("/update", userTurnsController_1.default.updateUserTurn);
         this.apiRouteUserTurn.delete("/delete/:id/:idU/:idT/", userTurnsController_1.default.deleteUserTurn);
+        this.apiRouteUserTurn.get("/search/:id/:idU/:idT/", userTurnsController_1.default.seacrhUsTById);
     }
 }
 const userTurnRoute = new UserTurnRoute();

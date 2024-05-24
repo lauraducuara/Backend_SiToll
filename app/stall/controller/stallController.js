@@ -16,7 +16,7 @@ class StallController extends stallDao_1.default {
     updateStall(req, res) {
         let objStall;
         objStall = req.body;
-        StallController.updateStalls(res, objStall);
+        StallController.updateRoute(res, objStall);
     }
     deleteStall(req, res) {
         const codStall = Number(req.params.id);
@@ -25,6 +25,15 @@ class StallController extends stallDao_1.default {
         }
         else {
             res.status(400).json({ mensaje: "Código del puesto no valido" });
+        }
+    }
+    seacrhStallById(req, res) {
+        const codStall = Number(req.params.id);
+        if (!isNaN(codStall)) {
+            StallController.getOneStallById(res, codStall);
+        }
+        else {
+            res.status(400).json({ mensaje: "Código del turno no valido" });
         }
     }
 }

@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const users_turns_1 = __importDefault(require("../../../models/users_turns"));
 const connectionBD_1 = __importDefault(require("../../../config/connection/connectionBD"));
+const userTurnRepo_1 = require("../repository/userTurnRepo");
 class UserTurnsDao {
     static addUserTurn(res, objUserTurn) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -26,8 +27,22 @@ class UserTurnsDao {
     }
     static getUserTurn(res) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.userTurnRepository.find().then((answer) => {
-                const arrayUserTurn = answer;
+            this.userTurnRepository.query(userTurnRepo_1.SQL_USTU.USTU_QUERY).then((answer) => {
+                const arrayUserTurn = answer.map((item) => ({
+                    codUsuario: item.cod_usuario,
+                    nombresUsuario: item.nombres_usuario,
+                    apellidosUsuario: item.apellidos_usuario,
+                    codPuesto: item.cod_puesto,
+                    horarioPuesto: item.horario_puesto,
+                    codTurno: item.cod_turno,
+                    diasturno: item.dias_turno,
+                    horaInicioTurno: item.hora_inicio_turno,
+                    horaFinTurno: item.hora_fin_turno,
+                    tipoTurno: item.tipo_turno,
+                    estadoTurno: item.estado_turno,
+                    nombrePeaje: item.nombrepeaje,
+                }));
+                console.log(arrayUserTurn);
                 res.status(200).json(arrayUserTurn);
             }).catch((error) => {
                 res.status(400).json({ mensaje: "Fallo al obtener el turno del usuario ", error });
@@ -37,9 +52,34 @@ class UserTurnsDao {
     static updateUserTurns(res, objUserTurn) {
         return __awaiter(this, void 0, void 0, function* () {
             this.userTurnRepository.update({ codUsuario: objUserTurn.codUsuario }, objUserTurn).then((answer) => {
-                res.status(200).json({ message: "Peaje actualizado", objeto: objUserTurn });
+                res.status(200).json({ message: "Turno usuario actualizado", objeto: objUserTurn });
             }).catch((error) => {
-                res.status(400).json({ mensaje: "Fallo al actualizar el peaje", error: error });
+                res.status(400).json({ mensaje: "Fallo el turno usuario ", error: error });
+            });
+        });
+    }
+    static getOneUserById(res, codUsuario, codPuesto, codTurno) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.userTurnRepository.query(userTurnRepo_1.SQL_USTU.USTU_QUERY_ID, [codUsuario, codPuesto, codTurno])
+                .then((answer) => {
+                const arrayUserTurn = answer.map((item) => ({
+                    codUsuario: item.cod_usuario,
+                    nombresUsuario: item.nombres_usuario,
+                    apellidosUsuario: item.apellidos_usuario,
+                    codpuesto: item.cod_puesto,
+                    horarioPuesto: item.horario_puesto,
+                    codTurno: item.cod_turno,
+                    diasturno: item.dias_turno,
+                    horaInicioTurno: item.hora_inicio_turno,
+                    horaFinTurno: item.hora_fin_turno,
+                    tipoTurno: item.tipo_turno,
+                    estadoTurno: item.estado_turno,
+                    nombrePeaje: item.nombrepeaje,
+                }));
+                res.status(200).json(arrayUserTurn);
+            })
+                .catch((error) => {
+                res.status(400).json({ mensaje: "Fallo al obtener el puesto", error });
             });
         });
     }

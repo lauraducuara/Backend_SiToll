@@ -32,7 +32,7 @@ const poolConnection = new typeorm_1.DataSource({
     logging: true,
     entities: [departament_1.default, routes_1.default, turns_1.default, users_1.default, access_1.default, routes_departaments_1.default, tolls_1.default, stalls_1.default, users_turns_1.default],
     namingStrategy: new typeorm_naming_strategies_1.SnakeNamingStrategy(),
-    ssl: { rejectUnauthorized: false }
+    //ssl: {rejectUnauthorized:false}
 });
 poolConnection.initialize()
     .then((conn) => {
